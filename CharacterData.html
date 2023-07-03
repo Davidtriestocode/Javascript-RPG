@@ -1,0 +1,47 @@
+function confirmStats() {
+  // Get the selected class
+  var selectedClass = document.getElementById("classContainer").innerText.replace("Selected Class: ", "");
+
+  // Get the attribute values
+  var strength = document.getElementById("strengthInput").value;
+  var endurance = document.getElementById("enduranceInput").value;
+  var agility = document.getElementById("agilityInput").value;
+  var attack = document.getElementById("attackInput").value;
+  var defence = document.getElementById("defenceInput").value;
+  var intelligence = document.getElementById("intelligenceInput").value;
+  var magic = document.getElementById("magicInput").value;
+  var health = document.getElementById("healthInput").value;
+  var stamina = document.getElementById("staminaInput").value;
+  var mana = document.getElementById("manaInput").value;
+
+  // Set current health, stamina, and mana
+  var currentHealth = parseInt(health);
+  var currentStamina = parseInt(stamina);
+  var currentMana = parseInt(mana);
+
+  // Create an object to store the character stats
+  var characterStats = {
+    class: selectedClass,
+    strength: strength,
+    endurance: endurance,
+    agility: agility,
+    attack: attack,
+    defence: defence,
+    intelligence: intelligence,
+    magic: magic,
+    health: parseInt(health), // Parse the value as an integer
+    stamina: parseInt(stamina), // Parse the value as an integer
+    mana: parseInt(mana), // Parse the value as an integer
+    currentHealth = currentHealth,
+    currentStamina = currentStamina,
+    currentMana = currentMana;
+  };
+
+
+
+  // Save the character stats to local storage
+  localStorage.setItem("characterStats", JSON.stringify(characterStats));
+
+  // Redirect the user to the MainGame.html page
+  window.location.href = "MainGame.html";
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Combat</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="combat.js"></script>
+</head>
+<body>
+  <div id="statusContainer">
+    <div id="healthBar" class="statusBar">
+      <div id="healthFill" class="statusFill"></div>
+      <div id="healthText" class="statusText">0 HP</div>
+    </div>
+    <div id="staminaBar" class="statusBar">
+      <div id="staminaFill" class="statusFill"></div>
+      <div id="staminaText" class="statusText">0 Stamina</div>
+    </div>
+    <div id="manaBar" class="statusBar">
+      <div id="manaFill" class="statusFill"></div>
+      <div id="manaText" class="statusText">0 Mana</div>
+    </div>
+  </div>
+
+  <div id="combatContainer">
+    <div id="monsterContainer">
+      <img id="monsterImage" src="">
+      <div id="monsterHealth" class="monsterHealthText">0 / 0</div>
+    </div>
+
+    <div id="characterContainer">
+      <img id="characterImage" src="">
+    </div>
+
+    <div id="combatActions">
+      <button id="attackButton">Attack</button>
+      <button id="defendButton">Defend</button>
+      <button id="abilityButton">Ability</button>
+      <button id="escapeButton">Escape</button>
+    </div>
+  </div>
+
+  <script>
+    // Retrieve character and monster images from query parameters
+    var urlParams = new URLSearchParams(window.location.search);
+    var characterImageSrc = urlParams.get("character");
+    var monsterImageSrc = urlParams.get("monster");
+
+    // Set the character and monster images
+    var characterImage = document.getElementById("characterImage");
+    var monsterImage = document.getElementById("monsterImage");
+    characterImage.src = characterImageSrc;
+    monsterImage.src = monsterImageSrc;
+  </script>
+</body>
+</html>

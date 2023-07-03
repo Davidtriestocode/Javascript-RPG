@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Menu</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    .menu-option {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+    .menu-option button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .menu-option button:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Game Menu</h1>
+  <div class="menu-option">
+    <button id="newGameButton">Start New Game</button>
+  </div>
+  <div class="menu-option">
+    <button id="loadGameButton">Load Game</button>
+  </div>
+
+  <script src="menu.js"></script>
+</body>
+</html>

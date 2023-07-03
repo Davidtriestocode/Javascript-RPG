@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Main Game</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<div id="statusContainer">
+  <div id="healthBar" class="statusBar">
+    <div id="healthFill" class="statusFill"></div>
+    <div id="healthText" class="statusText">0 HP</div>
+  </div>
+  <div id="staminaBar" class="statusBar">
+    <div id="staminaFill" class="statusFill"></div>
+    <div id="staminaText" class="statusText">0 Stamina</div>
+  </div>
+  <div id="manaBar" class="statusBar">
+    <div id="manaFill" class="statusFill"></div>
+    <div id="manaText" class="statusText">0 Mana</div>
+  </div>
+</div>
+
+  <div id="gameContainer">
+    <img id="mapImage" src="GameMap.jpg">
+    <img id="character" src="">
+  </div>
+
+  <script src="MainGame.js"></script>
+  <script>
+    // Get the character image element
+    var characterImage = document.getElementById("character");
+
+    // Set the source of the character image to the animated GIF file
+    characterImage.src = "RangerWalk.gif";
+  </script>
+</body>
+</html>

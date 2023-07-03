@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Character Creation Screen</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    h1 {
+      text-align: center;
+    }
+    .attribute {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .attribute span {
+      font-weight: bold;
+    }
+    .attribute input {
+      width: 50px;
+    }
+    .attribute button {
+      padding: 2px 6px;
+      font-size: 14px;
+      background-color: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .attribute button:hover {
+      background-color: #e0e0e0;
+    }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .button-container button {
+      padding: 10px 20px;
+      font-size: 18px;
+      background-color: #f0f0f0;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .button-container button:hover {
+      background-color: #e0e0e0;
+    }
+    .character-image {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+    .character-image img {
+      width: 200px;
+      height: 200px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s;
+    }
+  </style>
+  <script src="characterData.js"></script>
+  <script src="CharacterCreation.js"></script>
+</head>
+<body>
+  <h1>Character Creation Screen</h1>
+  <div id="classContainer">
+    <h2>Selected Class: None</h2>
+  </div>
+
+  <div class="character-image">
+    <img id="classImage" src="" alt="Character Image">
+  </div>
+  
+  <div class="attribute">
+    <span>Strength:</span>
+    <button onclick="decreaseAttribute('strength')">-</button>
+    <input type="number" id="strengthInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('strength')" id="strengthIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Endurance:</span>
+    <button onclick="decreaseAttribute('endurance')">-</button>
+    <input type="number" id="enduranceInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('endurance')" id="enduranceIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Agility:</span>
+    <button onclick="decreaseAttribute('agility')">-</button>
+    <input type="number" id="agilityInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('agility')" id="agilityIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Attack:</span>
+    <button onclick="decreaseAttribute('attack')">-</button>
+    <input type="number" id="attackInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('attack')" id="attackIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Defence:</span>
+    <button onclick="decreaseAttribute('defence')">-</button>
+    <input type="number" id="defenceInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('defence')" id="defenceIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Intelligence:</span>
+    <button onclick="decreaseAttribute('intelligence')">-</button>
+    <input type="number" id="intelligenceInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('intelligence')" id="intelligenceIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Magic:</span>
+    <button onclick="decreaseAttribute('magic')">-</button>
+    <input type="number" id="magicInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('magic')" id="magicIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Health:</span>
+    <button onclick="decreaseAttribute('health')">-</button>
+    <input type="number" id="healthInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('health')" id="healthIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Stamina:</span>
+    <button onclick="decreaseAttribute('stamina')">-</button>
+    <input type="number" id="staminaInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('stamina')" id="staminaIncreaseButton">+</button>
+  </div>
+  <div class="attribute">
+    <span>Magic Points:</span>
+    <button onclick="decreaseAttribute('magicPoints')">-</button>
+    <input type="number" id="magicPointsInput" min="10" max="100" value="10">
+    <button onclick="increaseAttribute('magicPoints')" id="magicPointsIncreaseButton">+</button>
+  </div>
+  
+  <div class="button-container">
+    <p id="allocationPoints" data-points="50">Remaining Allocation Points: 50</p>
+    <button id="confirmButton">Confirm</button>
+  </div>
+
+  <script>
+    function selectCharacter(characterClass) {
+      // Update the selected class at the top of the screen
+      var classContainer = document.getElementById("classContainer");
+      classContainer.innerHTML = "<h2>Selected Class: " + characterClass + "</h2>";
+
+      // Update the character image
+      var classImage = document.getElementById("classImage");
+      classImage.src = characterData.images[characterClass];
+    }
+
+    function decreaseAttribute(attribute) {
+      var inputElement = document.getElementById(attribute + "Input");
+      if (inputElement.value > 10) {
+        inputElement.value--;
+        updateAllocationPoints(); // Update allocation points when attribute changes
+        enableIncreaseButton(attribute); // Enable the increase button
+      }
+    }
+
+    function increaseAttribute(attribute) {
+      var inputElement = document.getElementById(attribute + "Input");
+      var allocationPointsElement = document.getElementById("allocationPoints");
+      var remainingAllocationPoints = parseInt(allocationPointsElement.getAttribute("data-points"));
+
+      if (remainingAllocationPoints > 0) {
+        inputElement.value++;
+        updateAllocationPoints(); // Update allocation points when attribute changes
+
+        // Disable the increase button if allocation points reach 0
+        if (remainingAllocationPoints === 1) {
+          disableIncreaseButton(attribute);
+        }
+      }
+    }
+
+    function enableIncreaseButton(attribute) {
+      var increaseButton = document.getElementById(attribute + "IncreaseButton");
+      increaseButton.disabled = false;
+    }
+
+    function disableIncreaseButton(attribute) {
+      var increaseButton = document.getElementById(attribute + "IncreaseButton");
+      increaseButton.disabled = true;
+    }
+
+    function updateAllocationPoints() {
+      var allocationPointsElement = document.getElementById("allocationPoints");
+      var totalAllocationPoints = 150; // Total allocation points available
+      var usedAllocationPoints = 0;
+
+      // Get the current values of all attributes and calculate used allocation points
+      var attributes = ["strength", "endurance", "agility", "attack", "defence", "intelligence", "magic", "health", "stamina", "magicPoints"];
+      for (var i = 0; i < attributes.length; i++) {
+        var attributeValue = parseInt(document.getElementById(attributes[i] + "Input").value);
+        usedAllocationPoints += attributeValue;
+      }
+
+      var remainingAllocationPoints = totalAllocationPoints - usedAllocationPoints;
+
+      // Update the allocation points element with the remaining allocation points
+      allocationPointsElement.textContent = "Remaining Allocation Points: " + remainingAllocationPoints;
+
+      // Disable increase buttons if there are no remaining allocation points
+      var increaseButtons = document.querySelectorAll('.attribute button[id$="IncreaseButton"]');
+      for (var i = 0; i < increaseButtons.length; i++) {
+        increaseButtons[i].disabled = remainingAllocationPoints === 0;
+      }
+    }
+
+    function confirmStats() {
+      // Get the selected class
+      var selectedClass = document.getElementById("classContainer").innerText.replace("Selected Class: ", "");
+
+      // Get the attribute values
+      var strength = document.getElementById("strengthInput").value;
+      var endurance = document.getElementById("enduranceInput").value;
+      var agility = document.getElementById("agilityInput").value;
+      var attack = document.getElementById("attackInput").value;
+      var defence = document.getElementById("defenceInput").value;
+      var intelligence = document.getElementById("intelligenceInput").value;
+      var magic = document.getElementById("magicInput").value;
+      var health = document.getElementById("healthInput").value;
+      var stamina = document.getElementById("staminaInput").value;
+      var magicPoints = document.getElementById("magicPointsInput").value;
+
+      // Create an object to store the character stats
+      var characterStats = {
+        class: selectedClass,
+        strength: strength,
+        endurance: endurance,
+        agility: agility,
+        attack: attack,
+        defence: defence,
+        intelligence: intelligence,
+        magic: magic,
+        health: health,
+        stamina: stamina,
+        magicPoints: magicPoints
+      };
+
+      // Save the character stats to local storage
+      localStorage.setItem("characterStats", JSON.stringify(characterStats));
+
+      // Redirect the user to the Combat page
+      window.location.href = "Combat.html";
+    }
+
+    // Call selectCharacter with the chosen class when the page loads
+    window.addEventListener("DOMContentLoaded", function() {
+      // Get the chosen class from the query parameter in the URL
+      var urlParams = new URLSearchParams(window.location.search);
+      var chosenClass = urlParams.get("class");
+
+      if (chosenClass) {
+        selectCharacter(chosenClass);
+      }
+
+      updateAllocationPoints(); // Initial update of allocation points
+    });
+
+    // Add event listener to the "Confirm" button
+    document.getElementById("confirmButton").addEventListener("click", confirmStats);
+  </script>
+</body>
+</html>
